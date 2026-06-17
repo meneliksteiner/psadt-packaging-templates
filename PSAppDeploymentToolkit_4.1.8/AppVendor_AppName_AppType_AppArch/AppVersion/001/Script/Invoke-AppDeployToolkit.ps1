@@ -55,18 +55,18 @@ param
 
 $adtSession = @{
     # App variables.
-    AppVendor = ''      # TODO AppVendor - Example: Mozilla
-    AppName = ''        # TODO AppName - Example Firefox
-    AppVersion = ''     # TODO AppVersion - Exmaple: 1.0.0
-    AppArch = ''        # TODO AppArch - Exmaple: x86 or x64
+    AppVendor = '' # TODO AppVendor - Example: Mozilla
+    AppName = '' # TODO AppName - Example Firefox
+    AppVersion = '' # TODO AppVersion - Exmaple: 1.0.0
+    AppArch = '' # TODO AppArch - Exmaple: x86 or x64
     AppLang = 'EN'
     AppRevision = '001'
     AppSuccessExitCodes = @(0)
     AppRebootExitCodes = @(1641, 3010)
-    AppProcessesToClose = @()       # TODO AppProcessesToClose - Example: @('excel', @{ Name = 'winword'; Description = 'Microsoft Word' })
+    AppProcessesToClose = @() # TODO AppProcessesToClose - Example: @('excel', @{ Name = 'winword'; Description = 'Microsoft Word' })
     AppScriptVersion = '1.0.0'
-    AppScriptDate = '2026-01-14'    # TODO AppScriptDate - Example: YYYY-MM-DD
-    AppScriptAuthor = ''            # TODO AppScriptAuthor - Example: Firstname Lastname
+    AppScriptDate = '2026-01-14' # TODO AppScriptDate - Example: YYYY-MM-DD
+    AppScriptAuthor = '' # TODO AppScriptAuthor - Example: Firstname Lastname
     RequireAdmin = $true
 
     # Custom variables
@@ -128,21 +128,21 @@ function Install-ADTDeployment
 
 
     # Check if registry detection key exists, if not create it
-    if (Test-Path -Path $adtSession.DetectionRegistryPath)
+    if (Test-Path -Path $adtSession.RegistryDetectionPath)
     {
         Write-ADTLogEntry "Software registry root key already exists"
     } else
     {
-        Set-ADTRegistryKey -Key $adtSession.DetectionRegistryPath
-        Write-ADTLogEntry "Created registry key: $($adtSession.DetectionRegistryPath)"
+        Set-ADTRegistryKey -Key $adtSession.RegistryDetectionPath
+        Write-ADTLogEntry "Created registry key: $($adtSession.RegistryDetectionPath)"
     }
 
     # Remove detection registry keys for prior versions (AppVendor_AppName_AppType_AppVersion_AppRevision_AppArch)
     $regKeyPSADT4Pattern = "$($adtSession.AppVendor.Replace(' ', ''))_$($adtSession.AppName.Replace(' ', ''))_$($adtSession.AppType)_*_*_$($adtSession.AppArch)"
-    Remove-RegistryKeysWithPattern -Path "$($adtSession.DetectionRegistryPath)\" -Pattern $regKeyPSADT4Pattern
+    Remove-RegistryKeysWithPattern -Path "$($adtSession.RegistryDetectionPath)\" -Pattern $regKeyPSADT4Pattern
 
     # Set new registry keys for application detection (SCCM /Intune)
-    $RegKey = Join-Path -Path $adtSession.DetectionRegistryPath -ChildPath "$($adtSession.AppVendor.Replace(' ', ''))_$($adtSession.AppName.Replace(' ', ''))_$($adtSession.AppType)_$($adtSession.AppVersion)_$($adtSession.AppRevision)_$($adtSession.AppArch)"
+    $RegKey = Join-Path -Path $adtSession.RegistryDetectionPath -ChildPath "$($adtSession.AppVendor.Replace(' ', ''))_$($adtSession.AppName.Replace(' ', ''))_$($adtSession.AppType)_$($adtSession.AppVersion)_$($adtSession.AppRevision)_$($adtSession.AppArch)"
     Set-ADTRegistryKey -Key $RegKey -Name 'AppVersion' -Value $adtSession.AppVersion
     Set-ADTRegistryKey -Key $RegKey -Name 'AppArchitecture' -Value $adtSession.AppArch
     Set-ADTRegistryKey -Key $RegKey -Name 'AppType' -Value $adtSession.AppType
@@ -207,7 +207,7 @@ function Uninstall-ADTDeployment
 
 
     # Remove Registry Keys of Detection Method
-    $RegKey = Join-Path -Path $adtSession.DetectionRegistryPath -ChildPath "$($adtSession.AppVendor.Replace(' ', ''))_$($adtSession.AppName.Replace(' ', ''))_$($adtSession.AppType)_$($adtSession.AppVersion)_$($adtSession.AppRevision)_$($adtSession.AppArch)"
+    $RegKey = Join-Path -Path $adtSession.RegistryDetectionPath -ChildPath "$($adtSession.AppVendor.Replace(' ', ''))_$($adtSession.AppName.Replace(' ', ''))_$($adtSession.AppType)_$($adtSession.AppVersion)_$($adtSession.AppRevision)_$($adtSession.AppArch)"
     Remove-ADTRegistryKey -Key "$($RegKey)"
 }
 
