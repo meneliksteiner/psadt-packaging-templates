@@ -71,7 +71,6 @@ $adtSession = @{
 
     # Custom variables
     AppType = 'Default'
-    AppDescription = ''
     RegistryDetectionPath = 'HKLM:\SOFTWARE\CUSTOMER'
 
     # Install Titles (Only set here to override defaults set by the toolkit).
