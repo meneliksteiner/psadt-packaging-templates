@@ -1,0 +1,72 @@
+# ----------------------------------------------------------------------
+# macOS
+# ----------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+Icon?
+
+# ----------------------------------------------------------------------
+# Windows
+# ----------------------------------------------------------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ----------------------------------------------------------------------
+# PowerShell / PSAppDeployToolkit (PSADT)
+# ----------------------------------------------------------------------
+# Compiled / packaged output
+*.intunewin
+*.intunewin.tmp
+Output/
+out/
+
+# PSADT runtime logs and cache
+*.log
+[Ll]ogs/
+PSAppDeployToolkit*.log
+
+# PowerShell module artifacts
+*.psd1.bak
+*.psm1.bak
+
+# Pester / test output
+[Tt]est[Rr]esults/
+*.testresults.xml
+coverage.xml
+
+# ----------------------------------------------------------------------
+# Editor / IDE
+# ----------------------------------------------------------------------
+.vscode/
+*.suo
+*.user
+.idea/
+.claude
+
+# ----------------------------------------------------------------------
+# Secrets / local config
+# ----------------------------------------------------------------------
+*.pfx
+*.cer
+secrets.*
+*.local.*
