@@ -171,9 +171,6 @@ function Uninstall-ADTDeployment
         Show-ADTInstallationWelcome -CloseProcesses $adtSession.AppProcessesToClose -CloseProcessesCountdown 60
     }
 
-    ## Show Progress Message (with the default message).
-    Show-ADTInstallationProgress
-
     ## <Perform Pre-Uninstallation tasks here>
 
     # TODO Pre-Uninstall
@@ -183,12 +180,6 @@ function Uninstall-ADTDeployment
     ## MARK: Uninstall
     ##================================================
     $adtSession.InstallPhase = $adtSession.DeploymentType
-
-    ## If processes to close, show Welcome Message with a 90 second countdown before automatically closing.
-    if ($adtSession.AppProcessesToClose.Count -gt 0)
-    {
-        Show-ADTInstallationWelcome -CloseProcesses $adtSession.AppProcessesToClose -CloseProcessesCountdown 90
-    }
 
     ## <Perform Uninstallation tasks here>
 
